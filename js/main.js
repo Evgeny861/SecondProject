@@ -1,7 +1,6 @@
-'use strict';
+"use strict";
+
 window.addEventListener('DOMContentLoaded', () => {
-
-
 
 
     function countTimer(deadline) {
@@ -20,22 +19,36 @@ window.addEventListener('DOMContentLoaded', () => {
 
             return { timeRemaining, hours, minutes, seconds };
 
+
         }
         function updateClock() {
 
             const timer = getTimeRemaining();
-
             timerHour.textContent = timer.hours;
             timerMinutes.textContent = timer.minutes;
             timerSeconds.textContent = timer.seconds;
 
-            
-            setTimeout(updateClock, 1000);
+            timerHour.textContent < 10 ?  timerHour.textContent = '0' + timer.hours :
+                timerHour.textContent = timer.hours;
 
+            timerMinutes.textContent < 10 ?  timerMinutes.textContent = '0' + timer.minutes :
+                timerMinutes.textContent = timer.minutes;
+
+            timerSeconds.textContent < 10 ? timerSeconds.textContent = '0' + timer.seconds :
+                timerSeconds.textContent = timer.seconds;
+
+            console.log(timerSeconds.textContent.length);
+
+
+            timer.timeRemaining < 0 ?
+                (clearInterval(a), timerSeconds.textContent = '00',
+                timerMinutes.textContent = '00', timerHour.textContent = '00') :
+                console.log(typeof(timerSeconds.textContent), timer.minutes, timer.hours);
         }
-        updateClock();
+        const a = setInterval(updateClock, 1000);
+
+
     }
-    // countTimer('02 july 2020');
-    // setInterval(countTimer, 1000, '03 july 2020')
+    countTimer('03 july 2020');
 });
 
