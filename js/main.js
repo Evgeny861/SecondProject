@@ -49,6 +49,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     }
-    countTimer('03 july 2020');
+    countTimer('04 july 2020');
 });
 
