@@ -28,27 +28,29 @@ window.addEventListener('DOMContentLoaded', () => {
             timerMinutes.textContent = timer.minutes;
             timerSeconds.textContent = timer.seconds;
 
-            timerHour.textContent < 10 ?  timerHour.textContent = '0' + timer.hours :
-                timerHour.textContent = timer.hours;
+            if (timerHour.textContent < 10) {
+                timerHour.textContent = '0' + timer.hours;
+            }
 
-            timerMinutes.textContent < 10 ?  timerMinutes.textContent = '0' + timer.minutes :
-                timerMinutes.textContent = timer.minutes;
+            if (timerMinutes.textContent < 10) {
+                timerMinutes.textContent = '0' + timer.minutes;
+            }
 
-            timerSeconds.textContent < 10 ? timerSeconds.textContent = '0' + timer.seconds :
-                timerSeconds.textContent = timer.seconds;
+            if (timerSeconds.textContent < 10) {
+                timerSeconds.textContent = '0' + timer.seconds;
+            }
 
-            console.log(timerSeconds.textContent.length);
 
 
             timer.timeRemaining < 0 ?
-                (clearInterval(a), timerSeconds.textContent = '00',
+                (clearInterval(idSetInterval), timerSeconds.textContent = '00',
                 timerMinutes.textContent = '00', timerHour.textContent = '00') :
                 console.log(typeof(timerSeconds.textContent), timer.minutes, timer.hours);
         }
-        const a = setInterval(updateClock, 1000);
+        const idSetInterval = setInterval(updateClock, 1000);
 
 
     }
-    countTimer('03 july 2020');
+    countTimer('04 july 2020');
 });
 
