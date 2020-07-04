@@ -40,11 +40,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 timerSeconds.textContent = '0' + timer.seconds;
             }
 
-            if (timer.timeRemaining < 0) {
+            timer.timeRemaining < 0 ?
                 // eslint-disable-next-line no-use-before-define
                 (clearInterval(idSetInterval), timerSeconds.textContent = '00',
-                timerMinutes.textContent = '00', timerHour.textContent = '00');
-            }
+                timerMinutes.textContent = '00', timerHour.textContent = '00') :
+                console.log(typeof(timerSeconds.textContent), timer.minutes, timer.hours);
         }
         const idSetInterval = setInterval(updateClock, 1000);
 
@@ -56,27 +56,30 @@ window.addEventListener('DOMContentLoaded', () => {
 // Menu
 const toggleMenu = () => {
 
-    const btnMenu = document.querySelector('.menu'),
+    const btmMenu = document.querySelector('.menu'),
         menu = document.querySelector('menu'),
         closeBtn = document.querySelector('.close-btn'),
-        body = document.querySelector('body');
+        menuItems = menu.querySelectorAll('ul>li');
 
     const handlerMenu = () => {
         menu.classList.toggle('active-menu');
+        // if (!menu.style.transform || menu.style.transform === `translate(-100%)`) {
+        //     menu.style.transform = `translate(0)`;
+        //     menu.style.transition = '1s';
+        // } else {
+        //     menu.style.transform = `translate(-100%)`;
+        // }
     };
-    body.addEventListener('click', event => {
-        let target = event.target;        
-        if (target.closest('.menu')) { 
-            handlerMenu();
-        }
-        else if (target === closeBtn) {
-            handlerMenu();
-        }
-        else if (menu.classList.contains('active-menu') && target !== menu){
-            handlerMenu();
-        }
 
-    });
+    btmMenu.addEventListener('click', handlerMenu);
+    closeBtn.addEventListener('click', handlerMenu);
+    for (let i = 0; i < menuItems.length; i++) {
+        menuItems[i].addEventListener('click', handlerMenu);
+    }
+    menuItems.forEach(elem => elem.addEventListener('click', handlerMenu));
+
+
+
 
 
 };
@@ -88,15 +91,17 @@ let opacityCounter = 0;
 const togglePopUp = () => {
     const popup = document.querySelector('.popup'),
         popupBtn = document.querySelectorAll('.popup-btn'),
+        popupClose = document.querySelector('.popup-close'),
         popupContent = document.querySelector('.popup-content');
 
+    console.log(popupContent);
     popupBtn.forEach(elem => {
         elem.addEventListener('click', () => {
             popup.style.display = 'block';
             popupContent.style.opacity = 0;
             if (screen.width > 768) {
                 function plane() {
-                    if (opacityCounter <= 1) {
+                    if (opacityCounter <= 0.9) {
                         opacityCounter += 0.06;
                     } else {
                         clearInterval(intervalId);
@@ -105,70 +110,20 @@ const togglePopUp = () => {
                 }
 
                 const intervalId = setInterval(plane, 20);
-            } else {
+            }else {
                 popupContent.style.opacity = 1;
             }
 
         });
     });
-    popup.addEventListener('click', event => {
-        let target = event.target;
-        if (target.classList.contains('popup-close')) {
-            popup.style.display = 'none';
-            popupContent.style.opacity = 0;
-            opacityCounter = 0;
-        } else {
-            target = target.closest('.popup-content');
-            if (!target) {
-                popup.style.display = 'none';
-                popupContent.style.opacity = 0;
-                opacityCounter = 0;
-            }
-        }
-
-
+    popupClose.addEventListener('click', () => {
+        popup.style.display = 'none';
+        popupContent.style.opacity = 0;
+        opacityCounter = 0;
     });
-
 
 
 
 };
 
 togglePopUp();
-
-
-// Табы
-
-const tabs = () => {
-    const tabHeader = document.querySelector('.service-header'),
-        tab = tabHeader.querySelectorAll('.service-header-tab'),
-        tabContent = document.querySelectorAll('.service-tab');
-
-    const toggleTabContent = index => {
-        for (let i = 0; i < tabContent.length; i++) {
-            if (index === i) {
-                tab[i].classList.add('active');
-                tabContent[i].classList.remove('d-none');
-            } else {
-                tabContent[i].classList.add('d-none');
-                tab[i].classList.remove('active');
-            }
-        }
-    };
-
-    tabHeader.addEventListener('click', event => {
-        let target = event.target;
-
-        target = target.closest('.service-header-tab');
-        if (target.classList.contains('service-header-tab')) {
-            tab.forEach((item, i) => {
-                if (item === target) {
-                    toggleTabContent(i);
-                }
-            });
-        }
-
-    });
-};
-
-tabs();
