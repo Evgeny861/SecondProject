@@ -50,7 +50,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     }
-    countTimer('01 july 2020');
+    countTimer('07 july 2020');
 
 
     // Menu
@@ -172,10 +172,27 @@ window.addEventListener('DOMContentLoaded', () => {
     tabs();
 
     // Слайдер
+    const sliderDot = () => {
+        const ul = document.querySelector('.portfolio-dots');
+
+        const slide = document.querySelectorAll('.portfolio-item');
+
+
+        for (let i = 0; i < slide.length; i++) {
+            ul.append(document.createElement('li'));
+        }
+
+        const li = ul.querySelectorAll('li');
+
+        for (let i = 0; i < li.length; i++) {
+            ul.querySelectorAll('li')[i].classList.add('dot');
+        }
+    };
+
+    sliderDot();
 
     const slider = () => {
         const slide = document.querySelectorAll('.portfolio-item'),
-            btn = document.querySelectorAll('.portfolio-btn'),
             dot = document.querySelectorAll('.dot'),
             slider = document.querySelector('.portfolio-content');
 

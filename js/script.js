@@ -50,7 +50,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     }
-    countTimer('01 july 2020');
+    countTimer('06 july 2020');
 });
 
 // Menu
