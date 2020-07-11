@@ -56,8 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Menu
     const toggleMenu = () => {
 
-        const btnMenu = document.querySelector('.menu'),
-            menu = document.querySelector('menu'),
+        const menu = document.querySelector('menu'),
             closeBtn = document.querySelector('.close-btn'),
             body = document.querySelector('body');
 
@@ -282,4 +281,52 @@ window.addEventListener('DOMContentLoaded', () => {
 
     slider();
 
+    // Добавление ругалярного выражения
+    const getRegularExpression = () => {
+        const calcSquare = document.querySelector('.calc-square'),
+            calcCount = document.querySelector('.calc-count'),
+            calcDay = document.querySelector('.calc-day');
+
+        calcSquare.addEventListener('input', () => {
+            calcSquare.value = calcSquare.value.replace(/\D/g, '');
+        });
+        calcCount.addEventListener('input', () => {
+            calcCount.value = calcCount.value.replace(/\D/g, '');
+        });
+        calcDay.addEventListener('input', () => {
+            calcDay.value = calcDay.value.replace(/\D/g, '');
+        });
+    };
+
+    getRegularExpression();
+
+
+    // Смена картинки
+    const setDataAttribute = () => {
+        const command = document.getElementById('command'),
+            img = command.querySelectorAll('img');
+
+        for (let i = 0; i < img.length; i++) {
+            img[i].addEventListener('mouseenter', () => {
+                const src = event.target.src;
+                event.target.src = event.target.dataset.img;
+                event.target.dataset.img = src;
+
+            });
+            img[i].addEventListener('mouseleave', () => {
+                const src = event.target.src;
+                event.target.src = event.target.dataset.img;
+                event.target.dataset.img = src;
+            });
+
+        }
+    };
+
+    setDataAttribute();
+
+
+
+
 });
+
+
