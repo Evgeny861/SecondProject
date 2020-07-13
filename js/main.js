@@ -331,7 +331,10 @@ window.addEventListener('DOMContentLoaded', () => {
             if (typeValue && squareValue) {
                 total = price * typeValue * squareValue * countValue * dayValue;
             }
-            totalValue.textContent = total;
+            totalValue.textContent = Math.ceil(total);
+            console.log(Math.ceil(total));
+            // totalValue.textContent = total;
+
         };
 
         calcBlock.addEventListener('change', event => {
@@ -377,6 +380,46 @@ window.addEventListener('DOMContentLoaded', () => {
 
     setDataAttribute();
 
+    const sendForm = () => {
+        const errorMessage = 'Что то пошло не так...',
+            loadMessage = 'Загрузка...',
+            successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+        const form = document.getElementById('form1');
+
+        const statusMessage = document.createElement('div');
+        statusMessage.style.cssText = 'font-size: 2rem;';
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            form.appendChild(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.addEventListener('readystatechange', () => {
+                statusMessage.textContent = loadMessage;
+                if (request.readyState !== 4) {
+                    return;
+                }
+                if (request.status === 200) {
+                    statusMessage.textContent = successMessage;
+                } else {
+                    statusMessage.textContent = errorMessage;
+                }
+            });
+
+
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'multipart/form-data');
+            const formData = new FormData(form);
+            request.send(formData);
+            console.log(new FormData(form));
+
+
+
+        });
+    };
+
+    sendForm();
 
 
 
