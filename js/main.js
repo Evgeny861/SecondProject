@@ -368,7 +368,26 @@ window.addEventListener('DOMContentLoaded', () => {
             if (typeValue && squareValue) {
                 total = price * typeValue * squareValue * countValue * dayValue;
             }
-            totalValue.textContent = Math.ceil(total);
+            let a = 0;
+
+            const timerId = setInterval(() => {
+                if (Math.ceil(total) > 0 && a <= total) {
+                    if ((Math.ceil(total) - a) > 1000) {
+                        a += 100;
+                        totalValue.textContent = a;
+                    } else if ((Math.ceil(total) - a) > 500) {
+                        a += 50;
+                        totalValue.textContent = a;
+                    } else if ((Math.ceil(total) - a) > 0) {
+                        a += 1;
+                        totalValue.textContent = a;
+                    }
+                }
+
+            }, 1);
+            setTimeout(() => { clearInterval(timerId); }, 10000);
+
+            totalValue.textContent = a;
 
         };
 
@@ -435,8 +454,8 @@ window.addEventListener('DOMContentLoaded', () => {
             form.appendChild(statusMessage);
             statusMessage.textContent = loadMessage;
             const formData = new FormData(form);
-            let body = {};
-            for (let val of formData.entries()) {
+            const body = {};
+            for (const val of formData.entries()) {
                 body[val[0]] = val[1];
             }
             // formData.forEach((val, key), () => {
@@ -463,8 +482,8 @@ window.addEventListener('DOMContentLoaded', () => {
             footerForm.appendChild(statusMessage);
             statusMessage.textContent = loadMessage;
             const formData = new FormData(footerForm);
-            let body = {};
-            for (let val of formData.entries()) {
+            const body = {};
+            for (const val of formData.entries()) {
                 body[val[0]] = val[1];
             }
             // formData.forEach((val, key), () => {
@@ -493,8 +512,8 @@ window.addEventListener('DOMContentLoaded', () => {
             modalWindow.appendChild(statusMessage);
             statusMessage.textContent = loadMessage;
             const formData = new FormData(modalWindow);
-            let body = {};
-            for (let val of formData.entries()) {
+            const body = {};
+            for (const val of formData.entries()) {
                 body[val[0]] = val[1];
             }
             // formData.forEach((val, key), () => {
