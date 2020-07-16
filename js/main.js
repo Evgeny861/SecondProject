@@ -455,33 +455,6 @@ window.addEventListener('DOMContentLoaded', () => {
         statusMessage.classList.add('status-message');
         statusMessage.style.cssText = 'font-size: 2rem;';
 
-        form.addEventListener('submit', event => {
-            event.preventDefault();
-            form.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
-            const formData = new FormData(form);
-            const body = {};
-            for (const val of formData.entries()) {
-                body[val[0]] = val[1];
-            }
-            // formData.forEach((val, key), () => {
-            //     body[key] = val;
-            // });
-            const input = form.querySelectorAll('input');
-            for (let i = 0; i < input.length; i++) {
-                if (input[i].value !== '') {
-                    input[i].value = '';
-                }
-            }
-            postData(body, () => {
-                statusMessage.textContent = successMessage;
-            }, error => {
-                statusMessage.textContent = errorMessage;
-                console.error(error);
-            });
-
-
-        });
 
         footerForm.addEventListener('submit', event => {
             event.preventDefault();
@@ -545,24 +518,58 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
 
-        
-        const postData = (body, outputData, errorData) => {
+
+        const postData = (body) => new Promise((resolve, reject) => {
             const request = new XMLHttpRequest();
             request.addEventListener('readystatechange', () => {
                 if (request.readyState !== 4) {
                     return;
                 }
                 if (request.status === 200) {
-                    outputData();
+                    const outputData = statusMessage.textContent = successMessage;
+                    resolve(outputData);
                 } else {
-                    errorData(request.status);
+                    const requestStatus = request.status;
+                    reject(requestStatus);
                 }
             });
             request.open('POST', './server.php');
             request.setRequestHeader('Content-Type', 'application/json');
             request.send(JSON.stringify(body));
 
-        };
+        });
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            form.appendChild(statusMessage);
+            statusMessage.textContent = loadMessage;
+            const formData = new FormData(form);
+            const body = {};
+            for (const val of formData.entries()) {
+                body[val[0]] = val[1];
+            }
+            // formData.forEach((val, key), () => {
+            //     body[key] = val;
+            // });
+            const input = form.querySelectorAll('input');
+            for (let i = 0; i < input.length; i++) {
+                if (input[i].value !== '') {
+                    input[i].value = '';
+                }
+            }
+            postData(body)
+                .then(outputData)
+                .catch(requestStatus);
+            // postData(body, () => {
+            //     ;
+            // }, error => {
+            //     statusMessage.textContent = errorMessage;
+            //     console.error(error);
+            // });
+
+
+        });
+
 
     };
 
