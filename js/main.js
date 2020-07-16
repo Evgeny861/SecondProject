@@ -456,38 +456,21 @@ window.addEventListener('DOMContentLoaded', () => {
         statusMessage.classList.add('status-message');
         statusMessage.style.cssText = 'font-size: 2rem;';
 
-        const postData = body => new Promise((resolve, reject) => {
-            const request = new XMLHttpRequest();
-            request.addEventListener('readystatechange', () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
-                if (request.status === 200) {
-                    const outputData = statusMessage.textContent = successMessage;
-                    resolve(outputData);
-                } else {
-                    statusMessage.textContent = errorMessage;
-                    reject(request.status);
-                }
+        const formData = new FormData(form);
+
+        const postData = formData =>
+            fetch('./server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: formData
             });
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(body));
-
-        });
-
-
-
 
         form.addEventListener('submit', event => {
             event.preventDefault();
             form.appendChild(statusMessage);
             statusMessage.textContent = loadMessage;
-            const formData = new FormData(form);
-            const body = {};
-            for (const val of formData.entries()) {
-                body[val[0]] = val[1];
-            }
             const input = form.querySelectorAll('input');
             for (let i = 0; i < input.length; i++) {
                 if (input[i].value !== '') {
@@ -506,16 +489,20 @@ window.addEventListener('DOMContentLoaded', () => {
             };
             setTimeout(deliteMessage, 5000);
 
-            postData(body)
-                .then(successMessage)
-                .catch(errorMessage);
+            postData(formData)
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('status network not 200');
+                    }
+                    console.log(response);
+                    statusMessage.textContent = successMessage;
+                })
+                .catch(error => {
+                    statusMessage.textContent = errorMessage;
+                    console.log(error);
+                });
 
         });
-
-
-
-
-
 
     };
 
