@@ -456,20 +456,11 @@ window.addEventListener('DOMContentLoaded', () => {
         statusMessage.classList.add('status-message');
         statusMessage.style.cssText = 'font-size: 2rem;';
 
-        const formData = new FormData(form);
-
-        const postData = formData =>
-            fetch('./server.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: formData
-            });
 
         form.addEventListener('submit', event => {
             event.preventDefault();
             form.appendChild(statusMessage);
+            const formData = new FormData(form);
             statusMessage.textContent = loadMessage;
             const input = form.querySelectorAll('input');
             for (let i = 0; i < input.length; i++) {
@@ -488,6 +479,16 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             };
             setTimeout(deliteMessage, 5000);
+
+            const postData = formData =>
+                fetch('./server.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: formData
+                });
+
 
             postData(formData)
                 .then(response => {
