@@ -124,11 +124,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            const modalWindow = document.getElementById('form3');
-            const statusMessage = modalWindow.querySelector('.status-message');
-            if (popup.style.display === 'none' && statusMessage) {
-                modalWindow.removeChild(statusMessage);
-            }
+            // const modalWindow = document.getElementById('form3');
+            // const statusMessage = modalWindow.querySelector('.status-message');
+            // if (popup.style.display === 'none' && statusMessage) {
+            //     modalWindow.removeChild(statusMessage);
+            // }
 
 
         });
@@ -498,6 +498,13 @@ window.addEventListener('DOMContentLoaded', () => {
             if (form === document.getElementById('form3')) {
                 statusMessage.style.color = '#fff';
             }
+
+            const deliteMessage = () => {
+                if (statusMessage) {
+                    form.removeChild(statusMessage);
+                }
+            };
+            setTimeout(deliteMessage, 5000);
 
             postData(body)
                 .then(successMessage)
