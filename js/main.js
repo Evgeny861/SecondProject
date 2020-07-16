@@ -372,13 +372,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const timerId = setInterval(() => {
                 if (Math.ceil(total) > 0 && a <= total) {
-                    if ((Math.ceil(total) - a) > 1000) {
+                    if ((Math.ceil(total) - totalValue.textContent) > 1000) {
                         a += 100;
                         totalValue.textContent = a;
-                    } else if ((Math.ceil(total) - a) > 500) {
+                    } else if ((Math.ceil(total) - totalValue.textContent) > 500) {
                         a += 50;
                         totalValue.textContent = a;
-                    } else if ((Math.ceil(total) - a) > 0) {
+                    } else if ((Math.ceil(total) - totalValue.textContent) > 100) {
+                        a += 10;
+                        totalValue.textContent = a;
+                    }  else if ((Math.ceil(total) - totalValue.textContent) > 50) {
+                        a += 5;
+                        totalValue.textContent = a;
+                    } else if ((Math.ceil(total) - totalValue.textContent) > 0) {
                         a += 1;
                         totalValue.textContent = a;
                     }
@@ -539,7 +545,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
 
-
+        
         const postData = (body, outputData, errorData) => {
             const request = new XMLHttpRequest();
             request.addEventListener('readystatechange', () => {
