@@ -15,6 +15,10 @@ form.addEventListener('submit', event => {
     event.preventDefault();
     form.appendChild(statusMessage);
     const formData = new FormData(form);
+    const body = {};
+    formData.forEach((val, key) => {
+        body[key] = val;
+    });
     statusMessage.textContent = loadMessage;
     const input = form.querySelectorAll('input');
     for (let i = 0; i < input.length; i++) {
@@ -34,17 +38,17 @@ form.addEventListener('submit', event => {
     };
     setTimeout(deliteMessage, 5000);
 
-    const postData = formData =>
+    const postData = body =>
         fetch('./server.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: formData
+            body: JSON.stringify(body)
         });
 
 
-    postData(formData)
+    postData(body)
         .then(response => {
             if (response.status !== 200) {
                 throw new Error('status network not 200');

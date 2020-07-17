@@ -11,7 +11,7 @@ import setDataAttribute from './modules/setDataAttribute';
 import sendForm from './modules/sendForm';
 
 // Timer
-countTimer('18 july 2020');
+countTimer('19 july 2020');
 // Menu
 toggleMenu();
 // popup
