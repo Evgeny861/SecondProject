@@ -455,14 +455,18 @@ window.addEventListener('DOMContentLoaded', () => {
         const statusMessage = document.createElement('div');
         statusMessage.classList.add('status-message');
         statusMessage.style.cssText = 'font-size: 2rem;';
-
-
-        form.addEventListener('submit', event => {
+        
+          
+                form.addEventListener('submit', event => {
             event.preventDefault();
             form.appendChild(statusMessage);
             const formData = new FormData(form);
             statusMessage.textContent = loadMessage;
             const input = form.querySelectorAll('input');
+            const body = {};
+            formData.forEach((val, key) => {
+                body[key] = val;
+            });
             for (let i = 0; i < input.length; i++) {
                 if (input[i].value !== '') {
                     input[i].value = '';
@@ -480,17 +484,17 @@ window.addEventListener('DOMContentLoaded', () => {
             };
             setTimeout(deliteMessage, 5000);
 
-            const postData = formData =>
+            const postData = body =>
                 fetch('./server.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: formData
+                    body: JSON.stringify(body)
                 });
 
 
-            postData(formData)
+            postData(body)
                 .then(response => {
                     if (response.status !== 200) {
                         throw new Error('status network not 200');
@@ -504,6 +508,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 });
 
         });
+
+        
 
     };
 
