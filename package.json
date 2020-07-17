@@ -1,10 +1,10 @@
 {
-  "name": "18Lesson",
+  "name": "18lesson",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open --mode=development",
+    "dev": "webpack-dev-server --mode=development --open",
     "build": "webpack --mode=production"
   },
   "repository": {
