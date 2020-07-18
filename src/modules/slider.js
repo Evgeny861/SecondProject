@@ -6,7 +6,7 @@ const slider = () => {
 
 
             for (let i = 0; i < slide.length; i++) {
-                ul.append(document.createElement('li'));
+                ul.appendChild(document.createElement('li'));
             }
 
             const li = ul.querySelectorAll('li');

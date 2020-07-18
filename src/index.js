@@ -1,5 +1,7 @@
 "use strict";
 
+import 'es6-promise';
+import 'fetch-polyfill';
 import '@babel/polyfill';
 import 'nodelist-foreach-polyfill';
 import elementClosest from 'element-closest';
@@ -14,6 +16,7 @@ import getRegularExpression from './modules/getRegularExpression';
 import calc from './modules/calc';
 import setDataAttribute from './modules/setDataAttribute';
 import sendForm from './modules/sendForm';
+import 'formdata-polyfill';
 
 // Timer
 countTimer('19 july 2020');
