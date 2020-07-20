@@ -9,13 +9,14 @@ const toggleMenu = () => {
     };
     body.addEventListener('click', event => {
         const target = event.target;
-        if (target.closest('.menu')) {
-            handlerMenu();
-        } else if (target === closeBtn) {
-            handlerMenu();
-        } else if (menu.classList.contains('active-menu') && target !== menu) {
-            handlerMenu();
-        }
+            if (target.closest('.menu')) {
+                handlerMenu();
+            } else if (target === closeBtn) {
+                handlerMenu();
+            } else if (menu.classList.contains('active-menu') && target !== menu && !target.matches('li')) {
+                handlerMenu();
+            }
+
 
     });
 

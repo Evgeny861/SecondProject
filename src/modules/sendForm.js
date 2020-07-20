@@ -3,9 +3,12 @@ form2 = document.getElementById('form2'),
 form3 = document.getElementById('form3');
 
 const sendForm = form => {
+
+
 const errorMessage = 'Что то пошло не так...',
     loadMessage = 'Загрузка...',
     successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+    
 
 const statusMessage = document.createElement('div');
 statusMessage.classList.add('status-message');

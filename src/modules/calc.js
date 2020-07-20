@@ -30,10 +30,18 @@ const calc = (price = 100) => {
         }
         let a = 0;
 
+        
         const timerId = setInterval(() => {
             if (Math.ceil(total) > 0 && a <= total) {
-                if ((Math.ceil(total) - totalValue.textContent) > 1000) {
-                    a += 100;
+                if ((Math.ceil(total) - totalValue.textContent) > 10000) {
+                    a += 10000;
+                    totalValue.textContent = a;
+                    console.log(calcBlock.matches('.calc-item'));
+                } else if ((Math.ceil(total) - totalValue.textContent) > 3000) {
+                    a += 2000;
+                    totalValue.textContent = a;
+                } else if ((Math.ceil(total) - totalValue.textContent) > 1000) {
+                    a += 1000;
                     totalValue.textContent = a;
                 } else if ((Math.ceil(total) - totalValue.textContent) > 500) {
                     a += 50;
@@ -47,13 +55,19 @@ const calc = (price = 100) => {
                 } else if ((Math.ceil(total) - totalValue.textContent) > 0) {
                     a += 1;
                     totalValue.textContent = a;
-                }
-            }
 
+                }
+                
+            }
         }, 1);
         setTimeout(() => { clearInterval(timerId); }, 10000);
+        calcBlock.addEventListener('change', (e) => {
+            clearInterval(timerId)
+        })
 
         totalValue.textContent = a;
+
+
 
     };
 
