@@ -6,7 +6,7 @@ const sendForm = form => {
 
 
 const errorMessage = 'Что то пошло не так...',
-    loadMessage = 'Загрузка...',
+    // loadMessage = 'Загрузка...',
     successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
     
 
@@ -22,7 +22,7 @@ form.addEventListener('submit', event => {
     formData.forEach((val, key) => {
         body[key] = val;
     });
-    statusMessage.textContent = loadMessage;
+    statusMessage.insertAdjacentHTML('beforeend', '<img src="./images\infinity.gif">');
     const input = form.querySelectorAll('input');
     for (let i = 0; i < input.length; i++) {
         if (input[i].value !== '') {
