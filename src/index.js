@@ -19,7 +19,7 @@ import sendForm from './modules/sendForm';
 import 'formdata-polyfill';
 
 // Timer
-countTimer('21 july 2020');
+countTimer('24 july 2020');
 // Menu
 toggleMenu();
 // popup
