@@ -22,7 +22,12 @@ form.addEventListener('submit', event => {
     formData.forEach((val, key) => {
         body[key] = val;
     });
-    statusMessage.insertAdjacentHTML('beforeend', '<img src="./images/infinity.gif" width="30px">');
+    if (!statusMessage.textContent) {
+        statusMessage.insertAdjacentHTML('beforeend', '<img id="reload" src="./images/infinity.gif" width="30px">');
+    } else {
+        statusMessage.textContent = '';
+        statusMessage.insertAdjacentHTML('beforeend', '<img id="reload" src="./images/infinity.gif" width="30px">');
+    }
     const input = form.querySelectorAll('input');
     for (let i = 0; i < input.length; i++) {
         if (input[i].value !== '') {
